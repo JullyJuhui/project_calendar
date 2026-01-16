@@ -3,20 +3,25 @@ import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 
 export default function Calendar() {
-    const onDateClick = (arg) => {
-        alert(arg.dateStr)
+    //클릭한 날짜 담기
+    const[startDate, setStartDate] = useState(null)
+    const[endDate, setEndDate] = useState(null)
+    //모달 관련 상태
+    const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false)
+
+    const onDateClick = (info) => {
+        setStartDate(info.dateStr)
+        setShow(true)
     }
     const onEventClick = () => {
         alert()
     }
 
-    //모달 관련 상태
-    const [show, setShow] = useState(false)
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
+    
 
     return (
         <>
@@ -47,8 +52,7 @@ export default function Calendar() {
                     color: "#3b82f6" // 선택
                 },
             ]}
-            // dateClick={onDateClick}
-            dateClick={handleShow}
+            dateClick={onDateClick}
             eventClick={onEventClick}
             selectable={true} //드래그 선택 가능
             />
@@ -58,10 +62,63 @@ export default function Calendar() {
                     <Modal.Title>이벤트 등록</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div>
-                        <div>title</div>
-                        <input />
-                    </div>
+                        <Form>
+                        {/* 제목 */}
+                        <Row className="mb-3">
+                            <Form.Label column lg={2}>
+                                제목
+                            </Form.Label>
+                            <Col>
+                                <Form.Control  type="text" placeholder="title" />
+                            </Col>
+                        </Row>
+                        
+                        {/* 시작, 종료 날짜 */}
+                        <Row className="mb-3">
+                            <Col md={6}>
+                            <Form.Group>
+                                
+                                <Form.Label>
+                                    시작
+                                </Form.Label>
+                                <Form.Control
+                                    type="datetime-local"
+                                    value={startDate}
+                                    onChange={(e) => setStartDate(e.target.value)}
+                                />
+                            </Form.Group>
+                            </Col>
+                            <Col md={6}>
+                            <Form.Group>
+                                <Form.Label>
+                                    종료
+                                </Form.Label>
+                                <Form.Control
+                                    type="datetime-local"
+                                    value={endDate}
+                                    onChange={(e) => setEndDate(e.target.value)}
+                                />
+                            </Form.Group>
+                            </Col>
+                        </Row>
+                        
+                        {/* category */}
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>카테고리</Form.Label>
+                            <Form.Select aria-label="Default select example" >
+                                <option>카테고리를 선택하세요</option>
+                                <option value="1" style={{ color: "#3b82f6" }}>업무</option>
+                                <option value="2" style={{ color: "#31c731ff" }}>회의</option>
+                                <option value="3" style={{ color: "#f7b018ff" }}>개인</option>
+                            </Form.Select>
+                        </Form.Group>
+
+                        {/* memo */}
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>메모</Form.Label>
+                            <Form.Control as="textarea" rows={3} placeholder="memo"/>
+                        </Form.Group>
+                    </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
