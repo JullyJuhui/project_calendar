@@ -11,10 +11,17 @@ export default function Calendar() {
     const[endDate, setEndDate] = useState(null)
     //모달 관련 상태
     const [show, setShow] = useState(false)
-    const handleClose = () => setShow(false)
+    const handleClose = () => {
+        if(startDate <= endDate){
+            setShow(false)
+        }else{
+            alert("시작날짜는 종료날짜보다 빨라야합니다.")
+        }
+    }
 
     const onDateClick = (info) => {
-        setStartDate(info.dateStr)
+        setStartDate(info.dateStr+"T09:00")
+        setEndDate(info.dateStr+"T10:00")
         setShow(true)
     }
     const onEventClick = () => {
@@ -38,16 +45,16 @@ export default function Calendar() {
                 {
                     id: "uuid-문자열", // 반드시 유니크
                     title: "휴가",
-                    start: "2026-01-13T09:00:00",
-                    end: "2026-01-14T18:00:00",
+                    start: "2026-01-13T09:00",
+                    end: "2026-01-14T18:00",
                     memo: "줌 링크...",
                     color: "#3a7e29ff" // 선택
                 },
                 {
                     id: "uuid-문자열", // 반드시 유니크
                     title: "회의",
-                    start: "2026-01-19T13:00:00",
-                    end: "2026-01-19T14:00:00",
+                    start: "2026-01-19T13:00",
+                    end: "2026-01-19T14:00",
                     memo: "줌 링크...",
                     color: "#3b82f6" // 선택
                 },
@@ -76,8 +83,7 @@ export default function Calendar() {
                         {/* 시작, 종료 날짜 */}
                         <Row className="mb-3">
                             <Col md={6}>
-                            <Form.Group>
-                                
+                            <Form.Group className="mb-3">
                                 <Form.Label>
                                     시작
                                 </Form.Label>
