@@ -17,7 +17,9 @@ function DateModal(props){
                                 제목
                             </Form.Label>
                             <Col>
-                                <Form.Control  type="text" placeholder="title" />
+                                <Form.Control  type="text" placeholder="title" 
+                                onChange={(e)=>props.onTitleChange(e.target.value)}
+                                />
                             </Col>
                         </Row>
                         
@@ -96,7 +98,10 @@ function EventModal(props){
                                 제목
                             </Form.Label>
                             <Col>
-                                <Form.Control  type="text" placeholder="title" />
+                                <Form.Control  type="text" placeholder="title" 
+                                value={props.title}
+                                onChange={(e)=>props.onTitleChange(e.target.value)}
+                                />
                             </Col>
                         </Row>
                         
@@ -152,6 +157,9 @@ function EventModal(props){
                     </Button>
                     <Button variant="primary" onClick={props.onSave}>
                         Save
+                    </Button>
+                    <Button variant="danger" onClick={props.onSave}>
+                        Delete
                     </Button>
                 </Modal.Footer>
             </Modal>
