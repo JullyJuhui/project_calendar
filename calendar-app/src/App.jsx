@@ -1,7 +1,7 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
-import Calendar from './pages/CalendarPage'
-import Header from './include/Header'
+import Calendar from './components/pages/CalendarPage'
+import Header from './components/include/Header'
 
 function App() {
 
@@ -11,6 +11,7 @@ function App() {
       <div>Calender</div>
       <Routes>
         <Route path="/" element={<Calendar />} />
+        {/* <Route path="/atCalendar" element={<AtCalendarPage />} /> */}
       </Routes>
     </>
   )

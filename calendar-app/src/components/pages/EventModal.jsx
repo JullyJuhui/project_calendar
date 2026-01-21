@@ -54,27 +54,27 @@ function DateModal(props){
                         {/* category */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <Form.Label>카테고리</Form.Label>
-                            <Form.Select aria-label="Default select example" >
-                                <option>카테고리를 선택하세요</option>
-                                <option value="1" style={{ color: "#3b82f6" }}>업무</option>
-                                <option value="2" style={{ color: "#31c731ff" }}>회의</option>
-                                <option value="3" style={{ color: "#f7b018ff" }}>개인</option>
+                            <Form.Select aria-label="Default select example" 
+                            onChange={(e)=>props.onCategoryChange(e.target.value)} >
+                                <option value="business" style={{ color: "#3b82f6" }}>업무</option>
+                                <option value="meeting" style={{ color: "#31c731ff" }}>회의</option>
+                                <option value="personal" style={{ color: "#f7b018ff" }}>개인</option>
                             </Form.Select>
                         </Form.Group>
 
                         {/* memo */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <Form.Label>메모</Form.Label>
-                            <Form.Control as="textarea" rows={3} placeholder="memo"/>
+                            <Form.Control as="textarea" rows={3} placeholder="memo" onChange={(e)=>props.onMemoChange(e.target.value)} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={props.onClose}>
-                        Close
+                        CLOSE
                     </Button>
                     <Button variant="primary" onClick={props.onSave}>
-                        Save
+                        SAVE
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -88,7 +88,7 @@ function EventModal(props){
             {/* ----------------------- 이벤트 등록 Modal ----------------------- */}
             <Modal show={props.show} onHide={props.onClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>이벤트 등록</Modal.Title>
+                    <Modal.Title>이벤트 상세</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                         <Form>
@@ -136,30 +136,31 @@ function EventModal(props){
                         {/* category */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <Form.Label>카테고리</Form.Label>
-                            <Form.Select aria-label="Default select example" >
-                                <option>카테고리를 선택하세요</option>
-                                <option value="1" style={{ color: "#3b82f6" }}>업무</option>
-                                <option value="2" style={{ color: "#31c731ff" }}>회의</option>
-                                <option value="3" style={{ color: "#f7b018ff" }}>개인</option>
+                            <Form.Select aria-label="Default select example" 
+                                value={props.category} onChange={(e)=>props.onCategoryChange(e.target.value)} >
+                                <option value="business" style={{ color: "#3b82f6" }}>업무</option>
+                                <option value="meeting" style={{ color: "#31c731ff" }}>회의</option>
+                                <option value="personal" style={{ color: "#f7b018ff" }}>개인</option>
                             </Form.Select>
                         </Form.Group>
 
                         {/* memo */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <Form.Label>메모</Form.Label>
-                            <Form.Control as="textarea" rows={3} placeholder="memo"/>
+                            <Form.Control as="textarea" rows={3} placeholder="memo" 
+                            value={props.memo} onChange={(e)=>props.onMemoChange(e.target.value)} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={props.onClose}>
-                        Close
+                        CLOSE
                     </Button>
                     <Button variant="primary" onClick={props.onSave}>
-                        Save
+                        SAVE
                     </Button>
                     <Button variant="danger" onClick={props.onSave}>
-                        Delete
+                        DELETE
                     </Button>
                 </Modal.Footer>
             </Modal>
