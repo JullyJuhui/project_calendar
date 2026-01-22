@@ -159,7 +159,7 @@ function EventModal(props){
                     <Button variant="primary" onClick={props.onSave}>
                         SAVE
                     </Button>
-                    <Button variant="danger" onClick={props.onSave}>
+                    <Button variant="danger" onClick={props.onDelete}>
                         DELETE
                     </Button>
                 </Modal.Footer>

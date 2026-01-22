@@ -47,6 +47,8 @@ export default function Calendar() {
 
     const onDateClick = (info) => {
         setModalType("date")
+
+        
         setStartDate(info.dateStr+"T09:00")
         setEndDate(info.dateStr+"T10:00")
         setShow(true)
@@ -57,10 +59,11 @@ export default function Calendar() {
         setEventId(info.event.id)
         const event = info.event
         console.log(event)
+        console.log(events)
 
         setTitle(event.title)
-        setStartDate(event.startStr)
-        setEndDate(event.endStr)
+        setStartDate(event.startStr.split('+')[0])
+        setEndDate(event.endStr.split('+')[0])
         setMemo(event.extendedProps.memo)
         setCategory(event.extendedProps.category)
 
@@ -92,6 +95,7 @@ export default function Calendar() {
             setEvents(prevEvents => [...prevEvents, newEvent])
         }
 
+        //수정
         if(modalType === "event"){
             setEvents(prevEvents =>
                 prevEvents.map(e => (
@@ -108,6 +112,17 @@ export default function Calendar() {
                 : e
                 )))
         }
+        
+        //초기화
+        setShow(false)
+        setTitle("")
+        setMemo("")
+        setCategory("business")
+        setEventId(null)
+    }
+
+    const onDelete = () => {
+        setEvents(events.filter((e) => e.id !== eventId))
         
         //초기화
         setShow(false)
@@ -145,7 +160,7 @@ export default function Calendar() {
             }
             {modalType === "event" &&
             <EventModal show={show} category={category} onCategoryChange={setCategory}
-                onClose={handleClose} onSave={onSave}
+                onClose={handleClose} onSave={onSave} onDelete={onDelete}
                 startDate={startDate} endDate={endDate} 
                 onStartDateChange={setStartDate} onEndDateChange={setEndDate}
                 title={title} onTitleChange={setTitle}
