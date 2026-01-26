@@ -47,10 +47,13 @@ export default function Calendar() {
 
     const onDateClick = (info) => {
         setModalType("date")
-
         
-        setStartDate(info.dateStr+"T09:00")
-        setEndDate(info.dateStr+"T10:00")
+        const now = new Date();
+        const startTime = `T${String(now.getHours() + 1).padStart(2, "0")}:00`;
+        const endTime = `T${String(now.getHours() + 2).padStart(2, "0")}:00`;
+        
+        setStartDate(info.dateStr+startTime)
+        setEndDate(info.dateStr+endTime)
         setShow(true)
     }
     const onEventClick = (info) => {
